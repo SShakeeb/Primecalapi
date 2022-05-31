@@ -9,20 +9,17 @@ app.listen(
     () => console.log(`Prime calculator API is alive on http://localhost:${PORT}`)
 )
 
-app.get('/sumandcheck', (req, res) => {
-    
+app.get('/sumandcheck', (req, res) => { 
     const result = _stringToNumbers(req.query.numbers).reduce((a,b) => a+b);
-
     res.status(200).send({
         result: result,
-        isPrime: false,
+        isPrime: _isPrimeNumber(result),
     })
 });
 
 app.get('/checkprime', (req, res) => {
-    _stringToNumbers(req.query.number)
     res.status(200).send({
-        isPrime: false,
+        isPrime: _isPrimeNumber(req.query.number),
     })
 });
 
@@ -33,4 +30,19 @@ function _stringToNumbers(numbers){
         Number.isInteger(num) ? returnN.push(num) : ''
     }
     return returnN;
+}
+
+function _isPrimeNumber(number){
+    if(number <= 1){
+        return false;
+    }
+    if(number%2 == 0 && number > 2){
+        return false;
+    }
+    const sq= Math.sqrt(number);
+    for(let i = 3; i<=sq; i += 2){
+        if(number%i === 0)
+            return false;
+    }
+    return true;
 }
