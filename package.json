@@ -1,0 +1,23 @@
+{
+  "name": "primecalapi",
+  "version": "1.0.0",
+  "description": "To calculate prime numbers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SShakeeb/Primecalapi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SShakeeb/Primecalapi/issues"
+  },
+  "homepage": "https://github.com/SShakeeb/Primecalapi#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
