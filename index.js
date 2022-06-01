@@ -1,7 +1,8 @@
-const express= require('express');
+const express = require('express');
 const app = express();
-const PORT = 8080;
-
+const PORT = 9090;
+const CheckPrimeNumber= require('./CheckPrimeNumber');
+const SumOfNumbers = require("./SumOfNumbers");
 app.use(express.json())
 
 app.listen(
@@ -10,39 +11,15 @@ app.listen(
 )
 
 app.get('/sumandcheck', (req, res) => { 
-    const result = _stringToNumbers(req.query.numbers).reduce((a,b) => a+b);
+    const result = SumOfNumbers(req.query.numbers);
     res.status(200).send({
         result: result,
-        isPrime: _isPrimeNumber(result),
+        isPrime: CheckPrimeNumber(result),
     })
 });
 
 app.get('/checkprime', (req, res) => {
     res.status(200).send({
-        isPrime: _isPrimeNumber(req.query.number),
+        isPrime: CheckPrimeNumber(req.query.number),
     })
 });
-
-function _stringToNumbers(numbers){
-    const returnN = [];
-    for (let i = 0; i<numbers.length; i++){
-        const num = Number(numbers[i]);
-        Number.isInteger(num) ? returnN.push(num) : ''
-    }
-    return returnN;
-}
-
-function _isPrimeNumber(number){
-    if(number <= 1){
-        return false;
-    }
-    if(number%2 == 0 && number > 2){
-        return false;
-    }
-    const sq= Math.sqrt(number);
-    for(let i = 3; i<=sq; i += 2){
-        if(number%i === 0)
-            return false;
-    }
-    return true;
-}
