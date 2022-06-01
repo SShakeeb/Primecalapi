@@ -11,15 +11,23 @@ app.listen(
 )
 
 app.get('/sumandcheck', (req, res) => { 
-    const result = SumOfNumbers(req.query.numbers);
-    res.status(200).send({
-        result: result,
-        isPrime: CheckPrimeNumber(result),
-    })
+    const reqParameters = req.query.numbers;
+    if(/^\d+(,\d+)*$/.test(reqParameters)==true){
+        const result = SumOfNumbers(reqParameters);
+        res.status(200).send({
+            result: result,
+            isPrime: CheckPrimeNumber(result),
+        })
+    }
+    else throw new Error("Numbers are empty or invalid in query parameters.")
 });
 
 app.get('/checkprime', (req, res) => {
-    res.status(200).send({
-        isPrime: CheckPrimeNumber(req.query.number),
-    })
+    const reqParameter = req.query.number;
+    if(/^\d+$/.test(reqParameter)==true){
+        res.status(200).send({
+            isPrime: CheckPrimeNumber(reqParameter),
+        })
+    }
+    else throw new Error("Number is empty or invalid in query parameter.")
 });
