@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
+const cors = require('cors'); //Cross-Origin Resource Sharing
 const PORT = 9090;
 const CheckPrimeNumber= require('./CheckPrimeNumber');
 const SumOfNumbers = require("./SumOfNumbers");
 app.use(express.json())
-
+app.use(cors())
 app.listen(
     PORT,
     () => console.log(`Prime calculator API is alive on http://localhost:${PORT}`)
