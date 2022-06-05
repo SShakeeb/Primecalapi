@@ -1,4 +1,4 @@
-const SumOfNumbers = require("./sumOfNumbers")
+const SumOfNumbers = require("./SumOfNumbers")
 
 test('Should return sum of numbers', () => {
     expect(
