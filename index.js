@@ -6,6 +6,7 @@ const CheckPrimeNumber= require('./CheckPrimeNumber');
 const SumOfNumbers = require("./SumOfNumbers");
 app.use(express.json())
 app.use(cors())
+
 app.listen(
     PORT,
     () => console.log(`Prime calculator API is alive on http://localhost:${PORT}`)
@@ -20,7 +21,7 @@ app.get('/sumandcheck', (req, res) => {
             isPrime: CheckPrimeNumber(result),
         })
     }
-    else throw new Error("Numbers are empty or invalid in query parameters.")
+    else errorHandler(err)
 });
 
 app.get('/checkprime', (req, res) => {
@@ -30,5 +31,16 @@ app.get('/checkprime', (req, res) => {
             isPrime: CheckPrimeNumber(reqParameter),
         })
     }
-    else throw new Error("Number is empty or invalid in query parameter.")
+    else errorHandler(err)
 });
+
+// Middleware
+app.use(errorHandler);
+
+function errorHandler (err, req, res, next) {
+    if (res.headersSent) {
+      return next(err)
+    }
+    res.status(400)
+    res.render('error', { error: err })
+  }
